@@ -26,7 +26,7 @@
     "build": "tsc",
     "pretest": "yarn build",
     "test": "jest",
-    "prepublishOnly": "yarn build && yarn test"
+    "prepublishOnly": "yarn test"
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
