@@ -1,3 +1,4 @@
+import getStream from "get-stream";
 import * as http from "http";
 import * as https from "https";
 import { parse as parseURL } from "url";
@@ -7,14 +8,20 @@ export default function httpRequest(
   requestArgs: http.ClientRequestArgs,
   body?: string
 ) {
-  return new Promise<http.IncomingMessage>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     const request =
       parseURL(url).protocol === "http:" ? http.request : https.request;
     const req = request(url, requestArgs, async res => {
       if (res.statusCode !== 200) {
         reject(new Error(`${res.statusCode} ${res.statusMessage}`));
       } else {
-        resolve(res);
+        try {
+          const response = await getStream(res.setEncoding("utf-8"));
+          res.destroy();
+          resolve(response);
+        } catch (error) {
+          reject(error);
+        }
       }
     });
     if (body !== undefined) {

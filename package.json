@@ -24,6 +24,7 @@
   "scripts": {
     "prebuild": "rm -rf lib",
     "build": "tsc",
+    "pretest": "yarn build",
     "test": "jest",
     "prepublishOnly": "yarn build && yarn test"
   },

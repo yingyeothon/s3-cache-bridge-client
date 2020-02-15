@@ -1,4 +1,3 @@
-import getStream from "get-stream";
 import authorizationHeader from "./authorization";
 import Env from "./env";
 import httpRequest from "./httpRequest";
@@ -10,5 +9,5 @@ export default function get(env: Env) {
       headers: {
         ...authorizationHeader(env)
       }
-    }).then(res => getStream(res.setEncoding("utf-8")));
+    });
 }
