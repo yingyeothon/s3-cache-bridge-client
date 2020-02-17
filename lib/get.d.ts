@@ -1,2 +1,3 @@
 import Env from "./env";
-export default function get(env: Env): (key: string) => Promise<string>;
+import LockOptions from "./support/lockOptions";
+export default function get(env: Env, { noLock }?: LockOptions): (key: string) => Promise<string>;

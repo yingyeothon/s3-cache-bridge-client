@@ -1,2 +1,3 @@
 import Env from "./env";
-export default function append(env: Env): (key: string, body: string) => Promise<string>;
+import LockOptions from "./support/lockOptions";
+export default function append(env: Env, { noLock }?: LockOptions): (key: string, body: string) => Promise<string>;

@@ -1,2 +1,3 @@
 import Env from "./env";
-export default function del(env: Env): (key: string) => Promise<string>;
+import LockOptions from "./support/lockOptions";
+export default function del(env: Env, { noLock }?: LockOptions): (key: string) => Promise<string>;
