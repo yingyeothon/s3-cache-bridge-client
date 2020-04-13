@@ -1,0 +1,39 @@
+import authorizationHeader from "./authorization";
+import Env from "./env";
+import httpRequest from "./httpRequest";
+import buildQueryParams from "./support/buildQueryParams";
+import FetchOptions from "./support/fetchOptions";
+import JSONModificationRequest from "./support/jsonModificationProtocol";
+import LockOptions from "./support/lockOptions";
+import SyncOptions from "./support/syncOptions";
+
+export default function patch<T>(env: Env) {
+  return (
+    key: string,
+    modRequest: JSONModificationRequest,
+    {
+      noLock = false,
+      sync = false,
+      fetch = false
+    }: LockOptions & SyncOptions & FetchOptions = {}
+  ): Promise<T | null> =>
+    httpRequest(
+      env.apiUrl + key + buildQueryParams({ noLock, sync, fetch }),
+      {
+        method: "PATCH",
+        headers: {
+          ...authorizationHeader(env)
+        }
+      },
+      JSON.stringify(modRequest)
+    ).then(response => {
+      if (!fetch) {
+        return null;
+      }
+      const value = JSON.parse(response);
+      if (!value._updated) {
+        throw new Error(value.error);
+      }
+      return value.result as T;
+    });
+}

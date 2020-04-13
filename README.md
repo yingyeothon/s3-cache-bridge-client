@@ -25,16 +25,17 @@ await cb.delete("hello");
 
 ## Functions
 
-| Name       | Description                               | Example                        |
-| ---------- | ----------------------------------------- | ------------------------------ |
-| get        | Get a file.                               | `cb.get(key)`                  |
-| put        | Put a content into the file.              | `cb.put(key, body: string)`    |
-| append     | Append a content into the file.           | `cb.append(key, body: string)` |
-| delete     | Delete a file.                            | `cb.delete(key)`               |
-| invalidate | Invalidate a cache file in bridge server. | `cb.invalidate(key)`           |
-| sync       | Upload a cache file into S3 right now.    | `cb.sync(key)`                 |
-| lock       | Acquire a lock of key.                    | `cb.lock(key)`                 |
-| unlock     | Release a lock of key.                    | `cb.unlock(key)`               |
+| Name       | Description                                                            | Example                              |
+| ---------- | ---------------------------------------------------------------------- | ------------------------------------ |
+| get        | Get a file.                                                            | `cb.get(key)`                        |
+| put        | Put a content into the file.                                           | `cb.put(key, body: string)`          |
+| append     | Append a content into the file.                                        | `cb.append(key, body: string)`       |
+| del        | Delete a file.                                                         | `cb.del(key)`                        |
+| patch      | Patch a JSON file using [json-mod](https://github.com/lacti/json-mod). | `cb.patch(key, operation: JSON_MOD)` |
+| invalidate | Invalidate a cache file in bridge server.                              | `cb.invalidate(key)`                 |
+| sync       | Upload a cache file into S3 right now.                                 | `cb.sync(key)`                       |
+| lock       | Acquire a lock of key.                                                 | `cb.lock(key)`                       |
+| unlock     | Release a lock of key.                                                 | `cb.unlock(key)`                     |
 
 ## License
 
