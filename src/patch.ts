@@ -7,8 +7,8 @@ import JSONModificationRequest from "./support/jsonModificationProtocol";
 import LockOptions from "./support/lockOptions";
 import SyncOptions from "./support/syncOptions";
 
-export default function patch<T>(env: Env) {
-  return (
+export default function patch(env: Env) {
+  return <T>(
     key: string,
     modRequest: JSONModificationRequest,
     {
