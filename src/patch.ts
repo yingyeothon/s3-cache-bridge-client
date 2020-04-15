@@ -14,24 +14,30 @@ export default function patch<T>(env: Env) {
     {
       noLock = false,
       sync = false,
-      fetch = false
+      fetch = modRequest.operation === "fetch",
     }: LockOptions & SyncOptions & FetchOptions = {}
   ): Promise<T | null> =>
     httpRequest(
-      env.apiUrl + key + buildQueryParams({ noLock, sync, fetch }),
+      env.apiUrl +
+        key +
+        buildQueryParams({
+          noLock,
+          sync,
+          fetch,
+        }),
       {
         method: "PATCH",
         headers: {
-          ...authorizationHeader(env)
-        }
+          ...authorizationHeader(env),
+        },
       },
       JSON.stringify(modRequest)
-    ).then(response => {
+    ).then((response) => {
       if (!fetch) {
         return null;
       }
       const value = JSON.parse(response);
-      if (!value._updated) {
+      if (!value._ok) {
         throw new Error(value.error);
       }
       return value.result as T;

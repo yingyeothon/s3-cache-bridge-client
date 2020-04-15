@@ -4,7 +4,7 @@ test("simple", async () => {
   const cb = S3cb({
     apiUrl: "http://localhost:3000/",
     apiId: "test",
-    apiPassword: "test"
+    apiPassword: "test",
   });
 
   // Not found
@@ -31,8 +31,11 @@ test("json-mod", async () => {
   const cb = S3cb({
     apiUrl: "http://localhost:3000/",
     apiId: "test",
-    apiPassword: "test"
+    apiPassword: "test",
   });
+
+  // Cleanup
+  await expect(cb.del("mod-test")).resolves.toBeDefined();
 
   // Append
   await expect(
@@ -51,6 +54,31 @@ test("json-mod", async () => {
       { fetch: true }
     )
   ).resolves.toEqual({ a: { b: { c: 20 } } });
+
+  // Fetch with only path
+  await expect(
+    cb.patch("mod-test", { operation: "fetch", path: "a" })
+  ).resolves.toEqual({ b: { c: 20 } });
+
+  // Fetch with only path and fetch flag (meaningless)
+  await expect(
+    cb.patch("mod-test", { operation: "fetch", path: "a.b" }, { fetch: true })
+  ).resolves.toEqual({ c: 20 });
+
+  // Upsert
+  await expect(
+    cb.patch("mod-test", {
+      operation: "append",
+      path: "a.b",
+      value: { c: 30 },
+      upsert: true,
+    })
+  ).resolves.toEqual(null); // No fetched result.
+
+  // Fetch with path and key
+  await expect(
+    cb.patch("mod-test", { operation: "fetch", path: "a", key: ["b"] })
+  ).resolves.toEqual([{ c: 30 }]);
 
   // Remove
   await expect(
