@@ -18,7 +18,12 @@ interface ModifyOperationRequest {
 interface RemoveOperationRequest {
     operation: "remove";
     path: string;
-    value?: string[];
+    key?: string[];
 }
-declare type JSONModificationRequest = AppendOperationRequest | ModifyOperationRequest | RemoveOperationRequest;
+interface FetchOperationRequest {
+    operation: "fetch";
+    path: string;
+    key?: string[];
+}
+declare type JSONModificationRequest = AppendOperationRequest | ModifyOperationRequest | RemoveOperationRequest | FetchOperationRequest;
 export default JSONModificationRequest;

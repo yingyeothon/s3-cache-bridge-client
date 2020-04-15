@@ -8,5 +8,5 @@ export default function S3cb(env: Env): {
     invalidate: (key: string) => Promise<string>;
     lock: (key: string) => Promise<string>;
     unlock: (key: string) => Promise<string>;
-    patch: (key: string, modRequest: import("./support/jsonModificationProtocol").default, { noLock, sync, fetch }?: import("./support/lockOptions").default & import("./support/syncOptions").default & import("./support/fetchOptions").default) => Promise<unknown>;
+    patch: (key: string, modRequest: import("./support/jsonModificationProtocol").default, { noLock, sync, fetch, }?: import("./support/lockOptions").default & import("./support/syncOptions").default & import("./support/fetchOptions").default) => Promise<unknown>;
 };
