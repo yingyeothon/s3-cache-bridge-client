@@ -1,7 +1,9 @@
+import Env from "./env";
 import append from "./append";
 import del from "./del";
-import Env from "./env";
+import download from "./download";
 import get from "./get";
+import getBuffer from "./getBuffer";
 import invalidate from "./invalidate";
 import lock from "./lock";
 import patch from "./patch";
@@ -19,6 +21,8 @@ export default function S3cb(env: Env) {
     invalidate: invalidate(env),
     lock: lock(env),
     unlock: unlock(env),
-    patch: patch(env)
+    patch: patch(env),
+    getBuffer: getBuffer(env),
+    download: download(env),
   };
 }

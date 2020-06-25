@@ -1,14 +1,17 @@
-import authorizationHeader from "./authorization";
 import Env from "./env";
-import httpRequest from "./httpRequest";
+import authorizationHeader from "./authorization";
 import buildQueryParams from "./support/buildQueryParams";
+import httpRequest from "./httpRequest";
 
 export default function invalidate(env: Env) {
   return (key: string) =>
-    httpRequest(env.apiUrl + key + buildQueryParams({ cache: true }), {
-      method: "DELETE",
-      headers: {
-        ...authorizationHeader(env)
-      }
+    httpRequest({
+      url: env.apiUrl + key + buildQueryParams({ cache: true }),
+      requestArgs: {
+        method: "DELETE",
+        headers: {
+          ...authorizationHeader(env),
+        },
+      },
     });
 }

@@ -1,24 +1,25 @@
-import authorizationHeader from "./authorization";
 import Env from "./env";
-import httpRequest from "./httpRequest";
-import buildQueryParams from "./support/buildQueryParams";
 import LockOptions from "./support/lockOptions";
 import SyncOptions from "./support/syncOptions";
+import authorizationHeader from "./authorization";
+import buildQueryParams from "./support/buildQueryParams";
+import httpRequest from "./httpRequest";
 
 export default function put(env: Env) {
   return (
     key: string,
-    body: string,
+    body: string | Buffer | Uint8Array,
     { noLock = false, sync = false }: LockOptions & SyncOptions = {}
   ) =>
-    httpRequest(
-      env.apiUrl + key + buildQueryParams({ noLock, sync }),
-      {
+    httpRequest({
+      url: env.apiUrl + key + buildQueryParams({ noLock, sync }),
+      requestArgs: {
         method: "PUT",
         headers: {
-          ...authorizationHeader(env)
-        }
+          ...authorizationHeader(env),
+          "Content-Length": body.length,
+        },
       },
-      body
-    );
+      body,
+    });
 }

@@ -1,14 +1,17 @@
-import authorizationHeader from "./authorization";
 import Env from "./env";
-import httpRequest from "./httpRequest";
+import authorizationHeader from "./authorization";
 import buildQueryParams from "./support/buildQueryParams";
+import httpRequest from "./httpRequest";
 
 export default function lock(env: Env) {
   return (key: string) =>
-    httpRequest(env.apiUrl + key + buildQueryParams({ lock: "acquire" }), {
-      method: "POST",
-      headers: {
-        ...authorizationHeader(env)
-      }
+    httpRequest({
+      url: env.apiUrl + key + buildQueryParams({ lock: "acquire" }),
+      requestArgs: {
+        method: "POST",
+        headers: {
+          ...authorizationHeader(env),
+        },
+      },
     });
 }

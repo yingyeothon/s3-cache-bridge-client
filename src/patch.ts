@@ -1,11 +1,11 @@
-import authorizationHeader from "./authorization";
 import Env from "./env";
-import httpRequest from "./httpRequest";
-import buildQueryParams from "./support/buildQueryParams";
 import FetchOptions from "./support/fetchOptions";
 import JSONModificationRequest from "./support/jsonModificationProtocol";
 import LockOptions from "./support/lockOptions";
 import SyncOptions from "./support/syncOptions";
+import authorizationHeader from "./authorization";
+import buildQueryParams from "./support/buildQueryParams";
+import httpRequest from "./httpRequest";
 
 export default function patch(env: Env) {
   return <T>(
@@ -17,22 +17,23 @@ export default function patch(env: Env) {
       fetch = modRequest.operation === "fetch",
     }: LockOptions & SyncOptions & FetchOptions = {}
   ): Promise<T | null> =>
-    httpRequest(
-      env.apiUrl +
+    httpRequest({
+      url:
+        env.apiUrl +
         key +
         buildQueryParams({
           noLock,
           sync,
           fetch,
         }),
-      {
+      requestArgs: {
         method: "PATCH",
         headers: {
           ...authorizationHeader(env),
         },
       },
-      JSON.stringify(modRequest)
-    ).then((response) => {
+      body: JSON.stringify(modRequest),
+    }).then((response) => {
       if (!fetch) {
         return null;
       }

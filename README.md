@@ -10,7 +10,7 @@ import S3cb from "@yingyeothon/s3-cache-bridge-client";
 const cb = S3cb({
   apiUrl: "http://your-server-address/",
   apiId: "api-id",
-  apiPassword: "api-password"
+  apiPassword: "api-password",
 });
 
 // Get a file.
@@ -27,7 +27,9 @@ await cb.delete("hello");
 
 | Name       | Description                                                            | Example                              |
 | ---------- | ---------------------------------------------------------------------- | ------------------------------------ |
-| get        | Get a file.                                                            | `cb.get(key)`                        |
+| get        | Get a file as `string`.                                                | `cb.get(key)`                        |
+| getBuffer  | Get a file as `buffer`.                                                | `cb.getBuffer(key)`                  |
+| download   | Download a file into local.                                            | `cb.download(key, localPath)`        |
 | put        | Put a content into the file.                                           | `cb.put(key, body: string)`          |
 | append     | Append a content into the file.                                        | `cb.append(key, body: string)`       |
 | del        | Delete a file.                                                         | `cb.del(key)`                        |

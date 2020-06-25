@@ -1,15 +1,18 @@
-import authorizationHeader from "./authorization";
 import Env from "./env";
-import httpRequest from "./httpRequest";
-import buildQueryParams from "./support/buildQueryParams";
 import LockOptions from "./support/lockOptions";
+import authorizationHeader from "./authorization";
+import buildQueryParams from "./support/buildQueryParams";
+import httpRequest from "./httpRequest";
 
 export default function del(env: Env) {
   return (key: string, { noLock = false }: LockOptions = {}) =>
-    httpRequest(env.apiUrl + key + buildQueryParams({ noLock }), {
-      method: "DELETE",
-      headers: {
-        ...authorizationHeader(env)
-      }
+    httpRequest({
+      url: env.apiUrl + key + buildQueryParams({ noLock }),
+      requestArgs: {
+        method: "DELETE",
+        headers: {
+          ...authorizationHeader(env),
+        },
+      },
     });
 }
