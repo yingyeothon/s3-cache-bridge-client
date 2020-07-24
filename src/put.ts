@@ -4,6 +4,7 @@ import SyncOptions from "./support/syncOptions";
 import authorizationHeader from "./authorization";
 import buildQueryParams from "./support/buildQueryParams";
 import httpRequest from "./httpRequest";
+import makeBodyAsBuffer from "./support/makeBodyAsPayload";
 
 export default function put(env: Env) {
   return (
@@ -17,9 +18,12 @@ export default function put(env: Env) {
         method: "PUT",
         headers: {
           ...authorizationHeader(env),
-          "Content-Length": body.length,
+          "Content-Length":
+            typeof body === "string"
+              ? Buffer.from(body, "utf8").length
+              : body.length,
         },
       },
-      body,
+      body: makeBodyAsBuffer(body),
     });
 }

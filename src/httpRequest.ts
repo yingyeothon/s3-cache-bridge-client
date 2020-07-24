@@ -12,7 +12,7 @@ export default function httpRequest<R = string>({
 }: {
   url: string;
   requestArgs: http.ClientRequestArgs;
-  body?: string | Buffer | Uint8Array;
+  body?: Buffer | Uint8Array;
   handleResponse?: (message: http.IncomingMessage) => Promise<R>;
 }): Promise<R> {
   const request =
@@ -28,12 +28,7 @@ export default function httpRequest<R = string>({
       req.end();
     } else {
       debugPrint(`Start to write body`, body.length);
-      const handleRequest = handleRequestCompletion(reject, req, body);
-      if (typeof body === "string") {
-        req.write(body, "utf-8", handleRequest);
-      } else {
-        req.write(body, handleRequest);
-      }
+      req.write(body, handleRequestCompletion(reject, req, body));
     }
   });
 }

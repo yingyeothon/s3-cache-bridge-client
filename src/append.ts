@@ -4,6 +4,7 @@ import SyncOptions from "./support/syncOptions";
 import authorizationHeader from "./authorization";
 import buildQueryParams from "./support/buildQueryParams";
 import httpRequest from "./httpRequest";
+import makeBodyAsBuffer from "./support/makeBodyAsPayload";
 
 export default function append(env: Env) {
   return (
@@ -19,6 +20,6 @@ export default function append(env: Env) {
           ...authorizationHeader(env),
         },
       },
-      body,
+      body: makeBodyAsBuffer(body),
     });
 }

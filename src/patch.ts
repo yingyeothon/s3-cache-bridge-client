@@ -6,6 +6,7 @@ import SyncOptions from "./support/syncOptions";
 import authorizationHeader from "./authorization";
 import buildQueryParams from "./support/buildQueryParams";
 import httpRequest from "./httpRequest";
+import makeBodyAsBuffer from "./support/makeBodyAsPayload";
 
 export default function patch(env: Env) {
   return <T>(
@@ -32,7 +33,7 @@ export default function patch(env: Env) {
           ...authorizationHeader(env),
         },
       },
-      body: JSON.stringify(modRequest),
+      body: makeBodyAsBuffer(JSON.stringify(modRequest)),
     }).then((response) => {
       if (!fetch) {
         return null;
