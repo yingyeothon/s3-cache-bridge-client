@@ -12,4 +12,5 @@ export default function S3cb(env: Env): {
     patch: <T>(key: string, modRequest: import("./support/jsonModificationProtocol").default, { noLock, sync, fetch, }?: import("./support/lockOptions").default & import("./support/syncOptions").default & import("./support/fetchOptions").default) => Promise<T | null>;
     getBuffer: (key: string, { noLock }?: import("./support/lockOptions").default) => Promise<Buffer>;
     download: (key: string, downloadPath: string, { noLock }?: import("./support/lockOptions").default) => Promise<string>;
+    exists: (key: string, { noLock }?: import("./support/lockOptions").default) => Promise<boolean>;
 };
