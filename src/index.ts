@@ -2,6 +2,7 @@ import Env from "./env";
 import append from "./append";
 import del from "./del";
 import download from "./download";
+import exists from "./exists";
 import get from "./get";
 import getBuffer from "./getBuffer";
 import invalidate from "./invalidate";
@@ -24,5 +25,6 @@ export default function S3cb(env: Env) {
     patch: patch(env),
     getBuffer: getBuffer(env),
     download: download(env),
+    exists: exists(env),
   };
 }

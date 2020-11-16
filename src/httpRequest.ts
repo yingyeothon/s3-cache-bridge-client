@@ -38,7 +38,7 @@ function handleResponseCompletion<R>(
   reject: (error: Error) => void,
   handleResponse?: (res: http.IncomingMessage) => Promise<R>
 ) {
-  return async function handleRespons(res: http.IncomingMessage) {
+  return async function(res: http.IncomingMessage) {
     debugPrint(`Receive from the opposite`, res.statusCode);
     if (res.statusCode !== 200) {
       reject(new Error(`${res.statusCode} ${res.statusMessage}`));
