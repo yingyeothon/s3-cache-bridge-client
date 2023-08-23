@@ -1,9 +1,9 @@
-declare type SingleValue = string | number;
-declare type KeyValue = {
+type SingleValue = string | number;
+type KeyValue = {
     [key: string]: ResourceValue;
 };
-declare type ArrayValue = ResourceValue[];
-declare type ResourceValue = KeyValue | ArrayValue | SingleValue;
+type ArrayValue = ResourceValue[];
+type ResourceValue = KeyValue | ArrayValue | SingleValue;
 interface AppendOperationRequest {
     operation: "append";
     path: string;
@@ -25,5 +25,5 @@ interface FetchOperationRequest {
     path: string;
     key?: string[];
 }
-declare type JSONModificationRequest = AppendOperationRequest | ModifyOperationRequest | RemoveOperationRequest | FetchOperationRequest;
+type JSONModificationRequest = AppendOperationRequest | ModifyOperationRequest | RemoveOperationRequest | FetchOperationRequest;
 export default JSONModificationRequest;
