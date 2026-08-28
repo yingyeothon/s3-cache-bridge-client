@@ -1,3 +1,15 @@
+> ## ⚠️ DEPRECATED — moved to [yingyeothon/tslib](https://github.com/yingyeothon/tslib)
+>
+> This repository is archived and no longer maintained. Its packages now live in the
+> `tslib` monorepo and are published from there as **v2.0.0+** with a redesigned API
+> (see each package's README there for migration notes).
+>
+> | Package here (last release from this repo) | Successor in `tslib` |
+> | --- | --- |
+> | `@yingyeothon/s3-cache-bridge-client` | `@yingyeothon/s3-cache-bridge-client` |
+>
+> Versions published from this repository stay on npm but are marked deprecated.
+
 # S3 Cache Bridge Client
 
 NodeJS Client library for [S3 Cache Bridge](https://github.com/lacti/s3-cache-bridge).
